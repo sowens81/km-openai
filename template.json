@@ -120,15 +120,61 @@
         "Cosmos": {
             "defaultValue": "[concat('cosmos', parameters('ResourceSuffix'))]",
             "type": "String"
+        },
+        "AppInsights": {
+            "defaultValue": "[concat('appai', parameters('ResourceSuffix'))]",
+            "type": "String"
+        },
+        "LogAnalytics": {
+            "defaultValue": "[concat('logs', parameters('ResourceSuffix'))]",
+            "type": "String"
         }
-
-        
     },
     "variables": {
 
 
     },
     "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "apiVersion": "2021-12-01-preview",
+            "name": "[parameters('LogAnalytics')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sku": {
+                    "name": "pergb2018"
+                },
+                "retentionInDays": 30,
+                "features": {
+                    "enableLogAccessUsingOnlyResourcePermissions": true
+                },
+                "workspaceCapping": {
+                    "dailyQuotaGb": -1
+                },
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2020-02-02",
+            "name": "[parameters('AppInsights')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('LogAnalytics'))]"
+            ],
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Flow_Type": "Redfield",
+                "Request_Source": "IbizaAIExtension",
+                "RetentionInDays": 90,
+                "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('LogAnalytics'))]",
+                "IngestionMode": "LogAnalytics",
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
         {
             "condition": "[equals(parameters('DeployNewRedisResource'), 'yes')]",
             "type": "Microsoft.Cache/redisEnterprise",
@@ -889,6 +935,14 @@
                         {
                             "name": "LIST_OF_COMMA_SEPARATED_URLS",
                             "value": "[ parameters('ListOfCommaSeparatedURLs')]" 
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('Microsoft.Insights/components', parameters('AppInsights')), '2020-02-02').InstrumentationKey]" 
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference(resourceId('Microsoft.Insights/components', parameters('AppInsights')), '2020-02-02').ConnectionString]" 
                         }
                     ]
                 },
