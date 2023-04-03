@@ -3,7 +3,7 @@
 
 <br/>
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsowens81%2Fkm-openai%2Fmain%2Ftemplate.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsowens81%2Fkm-openai%2FMain%2Ftemplate.json)
 <br />
 <br />
 
