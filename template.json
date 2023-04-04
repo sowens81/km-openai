@@ -228,6 +228,63 @@
             }
         },
         {
+            "condition": "[equals(parameters('DeployNewOpenAIResource'), 'yes')]",
+            "type": "Microsoft.CognitiveServices/accounts/deployments",
+            "apiVersion": "2022-12-01",
+            "name": "[concat(parameters('NewOpenAIResource'), '/gpt-35-turbo')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('NewOpenAIResource'))]"
+            ],
+            "properties": {
+                "model": {
+                    "format": "OpenAI",
+                    "name": "gpt-35-turbo",
+                    "version": "0301"
+                },
+                "scaleSettings": {
+                    "scaleType": "Standard"
+                }
+            }
+        },
+        {
+            "condition": "[equals(parameters('DeployNewOpenAIResource'), 'yes')]",
+            "type": "Microsoft.CognitiveServices/accounts/deployments",
+            "apiVersion": "2022-12-01",
+            "name": "[concat(parameters('NewOpenAIResource'), '/text-davinci-003')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('NewOpenAIResource'))]"
+            ],
+            "properties": {
+                "model": {
+                    "format": "OpenAI",
+                    "name": "text-davinci-003",
+                    "version": "1"
+                },
+                "scaleSettings": {
+                    "scaleType": "Standard"
+                }
+            }
+        },
+        {
+            "condition": "[equals(parameters('DeployNewOpenAIResource'), 'yes')]",
+            "type": "Microsoft.CognitiveServices/accounts/deployments",
+            "apiVersion": "2022-12-01",
+            "name": "[concat(parameters('NewOpenAIResource'), '/text-embedding-ada-002')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.CognitiveServices/accounts', parameters('NewOpenAIResource'))]"
+            ],
+            "properties": {
+                "model": {
+                    "format": "OpenAI",
+                    "name": "text-embedding-ada-002",
+                    "version": "1"
+                },
+                "scaleSettings": {
+                    "scaleType": "Standard"
+                }
+            }
+        },
+        {
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "apiVersion": "2022-11-15",
             "name": "[parameters('Cosmos')]",
