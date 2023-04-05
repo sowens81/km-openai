@@ -164,3 +164,4 @@ backup/
 WebSiteCrawler.ipynb
 agent copy.ipynb
 demo.ipynb
+.DS_Store

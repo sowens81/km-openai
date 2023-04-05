@@ -11,12 +11,14 @@ from utils import cogsearch_helpers
 from utils.kb_doc import KB_Doc
 
 
+
 KB_BLOB_CONN_STR = os.environ['KB_BLOB_CONN_STR']
 OUTPUT_BLOB_CONTAINER = os.environ['OUTPUT_BLOB_CONTAINER']
 
 ADA_002_EMBED_NUM_DIMS  = int(os.environ['ADA_002_EMBED_NUM_DIMS'])
 ADA_002_MODEL_MAX_TOKENS  = int(os.environ['ADA_002_MODEL_MAX_TOKENS'])
 ADA_002_EMBEDDING_MODEL   = os.environ['ADA_002_EMBEDDING_MODEL']
+
 
 DAVINCI_003_EMBED_NUM_DIMS = int(os.environ['DAVINCI_003_EMBED_NUM_DIMS'])
 DAVINCI_003_MODEL_MAX_TOKENS = int(os.environ['DAVINCI_003_MODEL_MAX_TOKENS'])
